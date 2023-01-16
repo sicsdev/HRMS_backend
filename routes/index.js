@@ -8,6 +8,10 @@ import auth from '../middleware/auth';
 router.post('/signup', signUpController.signup);
 router.post('/login', loginController.login); 
 router.get('/profile' , auth, profileController.profile); 
-
-
+router.put('/editusername' , auth, profileController.editusername); 
+router.put('/editemail' , auth, profileController.editemail); 
+router.put('/editphone' , auth, profileController.editphone); 
+router.put('/editpassword' , auth, profileController.editpassword); 
+router.put('/editdob' , auth, profileController.editdob); 
+router.post('/imageupload' , auth, profileController.imageupload); 
 export default router;

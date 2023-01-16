@@ -24,7 +24,7 @@ const signUpController = {
                     designation,
                     leave_quota
     
-                  });
+                  }); 
           const savedUser = await adduser.save();
        
           const token = jwt.sign({email:savedUser.email, id: savedUser._id, role:savedUser.role}, SECRET_KEY)
@@ -34,7 +34,7 @@ const signUpController = {
           res.status(500).json({ error: err.message });
         }
       }
-}
+}  
 
 
 
