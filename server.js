@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/',router);
 app.use(express.urlencoded({extended: true}))
-app.use(express.static('uploads'));
+app.use('/uploads',express.static('uploads'));
 
 mongoose.connect(DATABASE_URI,{
     useNewUrlParser: true,

@@ -1,6 +1,7 @@
 import express from 'express';
 const router = express.Router();
 import loginController from '../controllers/login.controller';
+import postController from '../controllers/post.controller';
 import profileController from '../controllers/profile.controller';
 import signUpController from '../controllers/signup.controller';
 import auth from '../middleware/auth';
@@ -14,4 +15,7 @@ router.put('/editphone' , auth, profileController.editphone);
 router.put('/editpassword' , auth, profileController.editpassword); 
 router.put('/editdob' , auth, profileController.editdob); 
 router.post('/imageupload' , auth, profileController.imageupload); 
+router.post('/add_post', postController.add_post);
+router.get('/all_post', postController.allpost);
+router.delete('/delete_post/:id', postController.deletepost);
 export default router;
