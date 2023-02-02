@@ -28,7 +28,6 @@ const profileController = {
     return res.json(records);
   },
 
-
   async editusername(req, res) {
 
     const { username } = req.body;
@@ -104,6 +103,7 @@ const profileController = {
     return res.json(editdob);
   },
   async imageupload(req, res) {
+
     handleMultipartData(req, res, async (err) => {
       const filePath = req.file.path;
       console.log(filePath)

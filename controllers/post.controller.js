@@ -94,6 +94,27 @@ const postController = {
         res.status(201).json(leave);
     },
 
+    async like(req, res) {
+        try {
+            let check = await postModel.findById(req.params.id)
+            let likeArray = check.like
+            let likedOrNot = likeArray.indexOf(req.user.id)
+            if (likedOrNot < 0) {
+                console.log(likedOrNot)
+                check = await postModel.findByIdAndUpdate(req.params.id, { $push: { like: req.user.id } })
+            } else {
+                likeArray.splice(likedOrNot, 1)
+                console.log(likeArray)
+                check = await postModel.findByIdAndUpdate(req.params.id, { $set: { like: [...likeArray] } })
+            }
+            res.status(201).json(check);
+        }
+        catch (error) {
+            console.log(error)
+        }
+
+
+    },
 
 
 

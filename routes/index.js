@@ -24,5 +24,10 @@ router.post('/add_user', newuserController.adduser);
 router.post('/add_leave', postController.add_leaves);
 router.post('/apply_leave', auth, applyleaveController.apply);
 router.get('/all_leave', postController.allleave);
-router.get('/get_apply_leaves', auth, applyleaveController.getapply_leaves);
+router.get('/get_apply_leaves', applyleaveController.getapply_leaves);
+router.post('/update_leave/:id', applyleaveController.update_leave);
+router.put('/cancel_leave/:id', applyleaveController.cancel_leave);
+router.get('/single_user_apply_leave', auth, applyleaveController.single_user_apply_leave);
+router.post('/like/:id', auth, postController.like);
+
 export default router;

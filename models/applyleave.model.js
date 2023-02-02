@@ -4,22 +4,25 @@ import { APP_URL } from "../config";
 const Schema = mongoose.Schema;
 
 const applyleaveSchema = new Schema({
-    userId: { type: Schema.Types.ObjectId, ref: "NewUser" },
+    userId: { type: Schema.Types.ObjectId, ref: 'NewUser' },
+    // leaves: { 
+    //     type: Array
 
-    leaves: {
-
-        type: Array,
-
-
-
-    },
-    status: { type: String, default: "Pending" },
-    date: { type: String },
-
+    //  },
+    leave: { type: Schema.Types.ObjectId, ref: 'Leaves', required: true },
+    status: { type: String, default: "pending" },
+    from_date: { type: String, required: true },
+    to_date: { type: String, required: true },
     reason: { type: String, required: true },
-    type_of_day: { type: String, required: true }
 
 
-}, { timestamps: true });
+
+})
+
+
+
+
+
+
 
 export default mongoose.model('Apply_leave', applyleaveSchema, 'apply_leave')
