@@ -6,6 +6,7 @@ const SECRET_KEY= "MYSECRETKEY"
 const auth = async(req, res, next) => {
   const token =
     req.headers["token"];
+    console.log(token)
   if (!token) {
     return res.status(403).send("A token is required for authentication");
   }

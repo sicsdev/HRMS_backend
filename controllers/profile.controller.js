@@ -1,5 +1,6 @@
 import registerModel from "../models/register.model";
 import multer from "multer";
+import newuserModel from "../models/newuser.model";
 
 
 
@@ -19,7 +20,7 @@ const profileController = {
     async profile(req, res){
         let records;
         try{
-           records= await registerModel.findById(req.user.id);    
+           records= await newuserModel.findById(req.user.id);    
           }
         catch(err){
            res.status(500).json({ error: err.message });
@@ -44,8 +45,8 @@ const profileController = {
 
           async editemail(req, res){ 
 
-            const { email } = req.body
-         
+           const { email } = req.body
+          
             let editemail;
             try{
               editemail = await registerModel.updateOne({_id: req.user.id}, { $set: {email: email}}) 

@@ -1,3 +1,4 @@
+import newuserModel from "../models/newuser.model";
 import registerModel from "../models/register.model";
 const jwt = require("jsonwebtoken");
 const SECRET_KEY= "MYSECRETKEY" 
@@ -12,7 +13,7 @@ const loginController = {
           if (!email || !password) {
             return res.status(400).json({ msg: "all fields required" });
           }
-          const user = await registerModel.findOne({ email: email });
+          const user = await newuserModel.findOne({ email: email });
           if (!user) {
             return res
               .status(400)
