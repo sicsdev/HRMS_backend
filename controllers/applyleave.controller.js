@@ -72,6 +72,11 @@ const applyleaveController = {
         let check=await newuserModel.findByIdAndUpdate(id,{$set:{leave:edit.leave}})
         return res.send("success")
        
+
+
+
+
+        
        },
 
     async  cancel_leave(req,res){
