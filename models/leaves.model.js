@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { APP_URL } from "../config";
+const mongoose = require("mongoose");
+const { APP_URL } = require("../config");
 const Schema = mongoose.Schema;
 
 const leavesSchema = new Schema({
@@ -11,4 +11,4 @@ const leavesSchema = new Schema({
 
 }, { timestamps: true });
 
-export default mongoose.model('Leaves', leavesSchema, 'leaves')
+module.exports = mongoose.model('Leaves', leavesSchema, 'leaves')

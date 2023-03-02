@@ -1,36 +1,50 @@
-import newuserModel from "../models/newuser.model";
-import registerModel from "../models/register.model";
+const newuserModel = require("../models/newuser.model");
+const registerModel = require("../models/register.model");
 const jwt = require("jsonwebtoken");
 const SECRET_KEY = "MYSECRETKEY"
+const bcrypt = require("bcrypt");
 
-const loginController = {
+// const loginController = {
 
 
-  async login(req, res) {
-    try {
-      const { email, password } = req.body;
+exports.login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-      if (!email || !password) {
-        return res.status(400).json({ msg: "all fields required" });
-      }
-      const user = await newuserModel.findOne({ email: email });
-      if (!user) {
-        return res
-          .status(400)
-          .json({ msg: "No account with this email has been registered." });
-      }
+    const user = await newuserModel.findOne({ email: email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ msg: "No account with this email has been registered." });
+    }
+    if (user.first_login == '') {
 
-      const token = jwt.sign({ email: user.email, id: user._id }, SECRET_KEY)
-      res.status(201).json({ success: true, authtoken: token, })
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch)
+        return res.status(400).json({ msg: "Invalid credentials." });
 
     }
-    catch (err) {
-      res.status(500).json({ error: err.message });
+    else {
+      if (req.body.password != user.first_login) {
+
+        console.log(req.body.password, "req.body.first_login")
+        return res.status(400).json({ msg: "passwords do not match" });
+      }
+
     }
 
-  },
+    const token = jwt.sign({ email: user.email, id: user._id ,role:user.role}, SECRET_KEY)
+    res.status(201).json({ success: true, authtoken: token, user: user })
+
+  }
+  catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+
 }
+// }
 
 
 
-export default loginController;
+// export default loginController;\
+// module.exports = { login }

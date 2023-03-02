@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-import { APP_URL } from "../config";
+const { APP_URL } = require("../config");
 const registerSchema = new Schema({
     username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -11,12 +11,11 @@ const registerSchema = new Schema({
     designation: { type: String, default: '' },
     leave_quota: { type: String, default: '' },
     image: {
-        type: String, get: (image) => {
-            return `${APP_URL} /${image}`;
-        }
+        type: String, default: ''
+
     },
 }, { timestamps: true });
 
 
-export default mongoose.model('Register', registerSchema, 'userdata')
+module.exports = mongoose.model('Register', registerSchema, 'userdata')
 

@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { APP_URL } from "../config";
+const mongoose = require("mongoose");
+const { APP_URL } = require("../config");
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
@@ -7,20 +7,16 @@ const postSchema = new Schema({
     description: { type: String, default: '' },
     post_date: { type: Date },
     image: {
-        type: String, default: '', get: (image) => {
-            return `${APP_URL} /${image}`;
-        }
-    },
+        type: String, default: ''},
     like: [
         { type: Schema.Types.ObjectId, ref: 'NewUser' }
     ],
     comment: [
         {
             userId: { type: Schema.Types.ObjectId, ref: 'NewUser' },
-            comments: { type: String }
-
+            content: { type: String }
         }
     ]
 }, { timestamps: true, toJSON: { getters: true } });
 
-export default mongoose.model('Post', postSchema, 'post')
+module.exports = mongoose.model('Post', postSchema, 'post')
